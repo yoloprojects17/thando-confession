@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>For Thando</title>
+
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        #confession {
+            display: none;
+            opacity: 0;
+            margin-top: 30px;
+            font-size: 18px;
+            transition: opacity 2s ease-in, transform 2s ease;
+            transform: translateY(20px);
+        }
+        
+        #loveLine, #sorryLine {
+            opacity: 0;
+            transition: opacity 2s ease-in;
+            font-weight: bold;
+            font-size: 22px;
+            margin-top: 15px;
+        }
+
+        /* Glow effect whwn visible */
+        .glow {
+            text-shadow: 0 0 8px white, 0 0 15px white, 0 0 20px white;
+        }
+
+        button { 
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: none;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        hr {
+            width: 50%;
+            margin: 30px auto;
+            border: 1px solid white;
+         }
+     </style>
+ </head>
+
+<body>
+
+      <h1>Love That Endures</h1>
+
+      <p style="font-style: italic;">
+           "Love bears all things, believes all things, hopes all things, endures all things. 
+            Love never fails." <br>
+            - 1 Corinthians 13:7-8
+      </p>
+
+      <hr>
+
+      <h3>Riddle:</h3>
+      <p>
+          I am not a word, yet I am spoken.<br>
+          I am not alive, yet I can grow.<br>
+          I begin in the heart and can last forever.<br>
+          What am I?
+      </p>
+
+      <input type="password" id="answer" placeholder="Enter your answer">
+      <br>
+      <button onclick="checkpassword()">Unlock</button>
+
+      <div id="confession">
+            <p>
+                Thando, my twin and my friend, I love you so much and I don't want it to change.
+                But sadly, I'm still <b>In</b> love with you.
+                Trust me, I'm doing everything I can to make sure it doesn't affect our friendship,
+                but as of right now....
+            </p>
+
+              
+            <p id="loveLine">I still love you.</p>
+            <p id="sorryLine">I'm sorry</p>    
+         </div>
+
+         <audio id="lovesong" src="song.mp3"></audio>
+
+         <script>
+            function checkpassword() {
+                var userAnswer = document.getElementById("answer").value.toLowerCase().trim();
+    
+                if (userAnswer ==="love") {
+  
+                     var confession =document.getElementById("confession");
+
+                     // Make block visible first
+                     confession.style.display = "block";
+
+                    // Tiny delay so opacity transition works 
+                    setTimeout(function() {
+                     confession.style.opacity = "1";
+                     confession.style.transform = "translateY(0)";
+                 }, 50);
+      
+                     var song = document.getElementById("lovesong");
+                     song.currentTime = 93;
+
+
+                     setTimeout(function() { 
+                         song.play();
+                    }, 1000);
+
+                    // Synced lyric fade-ins   
+                    song.ontimeupdate = function() {
+                        
+                        if (song.currentTime >= 106) {
+                             var loveLine = document.getElementById("loveLine");
+                            loveLine.style.opacity = "1"
+                            loveLine.classList.add("glow", "heartbeat");
+                        }
+                       
+                        if (song.currentTime >= 121) {
+                            var sorryLine = document.getElementById("sorryLine");
+                            sorryLine.style.opacity = "1";
+                            sorryLine.classList.add("glow", "heartbeat");
+                        }
+
+
+                   };
+
+               } else {
+                   alert("This is not the right answer. Try again.");
+                }
+             }
+           </script>
+
+ </body>
+ </html>
+
+
+
