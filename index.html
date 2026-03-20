@@ -3,6 +3,7 @@
 
 <head>
     <title>For Thando</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
 
@@ -11,18 +12,42 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 50px;
+            padding: 24px;
+            margin: 0;
             overflow-x: hidden;
+        }
+
+        .verse {
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+        }
+
+        .riddle-title {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        .riddle-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
         }
 
         #confession {
             display: none;
             opacity: 0;
-            margin-top: 30px;
-            font-size: 18px;
+            margin: 30px auto 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 900px;
             transition: opacity 3s ease-in;
             position: relative;
             z-index: 10;
+            padding: 0 10px;
         }
 
         #typedText {
@@ -33,8 +58,9 @@
             opacity: 0;
             transition: opacity 2s ease-in;
             font-weight: bold;
-            font-size: 28px;
-            margin-top: 15px;
+            font-size: 2rem;
+            line-height: 1.4;
+            margin-top: 18px;
             color: #ff4d6d;
             text-shadow: 0 0 10px rgba(255,0,80,0.8), 0 0 20px rgba(255,0,80,0.6);
         }
@@ -57,14 +83,24 @@
             }
         }
 
+        #answer {
+            width: min(90vw, 420px);
+            padding: 14px 16px;
+            font-size: 1rem;
+            border: none;
+            outline: none;
+            border-radius: 8px;
+        }
+
         button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 14px 24px;
+            font-size: 1rem;
             margin-top: 10px;
             cursor: pointer;
             background: white;
             color: black;
             border: none;
+            border-radius: 8px;
         }
 
         .memory {
@@ -76,7 +112,7 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.6);
             transition: opacity 2s ease;
             pointer-events: none;
-            z-index: 3; /* FIXED */
+            z-index: 3;
         }
 
         #imagefirst {
@@ -86,8 +122,6 @@
             transform: translate(-50%,-50%);
             z-index: 2;
         }
-
-        /* spread layout */
 
         #image1 {
             top: 5%;
@@ -137,8 +171,6 @@
             transform: rotate(6deg);
         }
 
-        /* FINAL IMAGE CENTERED */
-
         #imagefinal {
             top: 50%;
             left: 50%;
@@ -187,7 +219,138 @@
         .zoom {
             transform: translate(-50%,-50%) scale(1.6) rotate(-3deg);
             transition: transform 6s ease;
-            z-index: 6;
+            z-index: 7;
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) {
+            body {
+                padding: 36px;
+            }
+
+            .verse,
+            .riddle-text,
+            #confession {
+                font-size: 1.2rem;
+            }
+
+            #answer {
+                font-size: 1.05rem;
+            }
+
+            button {
+                font-size: 1.05rem;
+            }
+        }
+
+        /* Phone */
+        @media (max-width: 767px) {
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 16px;
+            }
+
+            .verse {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            .riddle-title {
+                font-size: 1.35rem;
+            }
+
+            .riddle-text {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            #confession {
+                font-size: 1rem;
+                line-height: 1.9;
+            }
+
+            #typedText {
+                min-height: 160px;
+            }
+
+            #loveLine, #sorryLine {
+                font-size: 1.7rem;
+            }
+
+            .memory {
+                width: 170px;
+                padding: 10px 10px 26px 10px;
+            }
+
+            #imagefirst {
+                width: 280px;
+            }
+
+            #imagefinal {
+                width: 300px;
+            }
+
+            #answer {
+                width: 94vw;
+                max-width: 520px;
+                font-size: 1.15rem;
+                padding: 18px;
+                border-radius: 10px;
+            }
+
+            button {
+                width: 94vw;
+                max-width: 520px;
+                padding: 18px;
+                font-size: 1.15rem;
+                border-radius: 10px;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 480px) {
+            body {
+                padding: 18px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .verse,
+            .riddle-text,
+            #confession {
+                font-size: 0.98rem;
+            }
+
+            #loveLine, #sorryLine {
+                font-size: 1.5rem;
+            }
+
+            .memory {
+                width: 150px;
+                padding: 10px 10px 24px 10px;
+            }
+
+            #imagefirst {
+                width: 250px;
+            }
+
+            #imagefinal {
+                width: 270px;
+            }
+
+            #answer {
+                width: 95vw;
+                font-size: 1.1rem;
+                padding: 18px;
+            }
+
+            button {
+                width: 95vw;
+                font-size: 1.1rem;
+                padding: 18px;
+            }
         }
     </style>
 </head>
@@ -196,16 +359,16 @@
 
     <h1>Love That Endures</h1>
 
-    <p style="font-style:italic;">
+    <p class="verse">
         "Love bears all things, believes all things, hopes all things, endures all things.
         Love never fails."<br />
-        - 1 corinthians 13:7-8
+        - 1 Corinthians 13:7-8
     </p>
 
     <hr />
 
-    <h3>Riddle</h3>
-    <p>
+    <h3 class="riddle-title">Riddle</h3>
+    <p class="riddle-text">
         I am not a word, yet I am spoken.<br />
         I am not alive, yet I can grow.<br />
         I begin in the heart and can last forever.<br />
@@ -241,9 +404,9 @@
         let imagesStarted = false;
         let sorryShown = false;
 
-        const message = `Thando... * sigh * my twin and my friend, I love you so much and I don't want it to change. 
-        But sadly, I'm still in love with you. Trust me, I'm doing everything I can to make sure it doesn't affect our friendship,
-        but as of right now....`;
+        const message = `Thando... my twin and my friend, I love you so much and I don't want it to change.
+            But sadly, there is something I want to tell you. Trust me, I have done everything I can to make sure it doesn't affect our friendship,
+            but as of right now....`;
 
         function typeText() {
             let i = 0;
@@ -319,7 +482,6 @@
 
                         document.getElementById("imagefirst").classList.add("show");
 
-                        /* DELAY ADDED */
                         setTimeout(function () {
                             showMemories();
                         }, 3000);
@@ -356,3 +518,4 @@
 
 </body>
 </html>
+
