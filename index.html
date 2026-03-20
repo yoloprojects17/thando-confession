@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>For Thando</title>
 
     <style>
+
         body {
-            background-color: black;
+            background: black;
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
+            overflow-x: hidden;
         }
 
         #confession {
@@ -17,137 +20,339 @@
             opacity: 0;
             margin-top: 30px;
             font-size: 18px;
-            transition: opacity 2s ease-in, transform 2s ease;
-            transform: translateY(20px);
+            transition: opacity 3s ease-in;
+            position: relative;
+            z-index: 10;
         }
-        
+
+        #typedText {
+            min-height: 120px;
+        }
+
         #loveLine, #sorryLine {
             opacity: 0;
             transition: opacity 2s ease-in;
             font-weight: bold;
-            font-size: 22px;
+            font-size: 28px;
             margin-top: 15px;
+            color: #ff4d6d;
+            text-shadow: 0 0 10px rgba(255,0,80,0.8), 0 0 20px rgba(255,0,80,0.6);
         }
 
-        /* Glow effect whwn visible */
         .glow {
-            text-shadow: 0 0 8px white, 0 0 15px white, 0 0 20px white;
+            animation: heartbeat 1.2s infinite;
         }
 
-        button { 
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        button {
             padding: 10px 20px;
             font-size: 16px;
             margin-top: 10px;
             cursor: pointer;
-            background-color: white;
+            background: white;
             color: black;
             border: none;
         }
 
-        input {
-            padding: 8px;
-            font-size: 16px;
-            text-align: center;
+        .memory {
+            position: fixed;
+            width: 110px;
+            opacity: 0;
+            background: white;
+            padding: 8px 8px 25px 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            transition: opacity 2s ease;
+            pointer-events: none;
+            z-index: 3; /* FIXED */
         }
 
-        hr {
-            width: 50%;
-            margin: 30px auto;
-            border: 1px solid white;
-         }
-     </style>
- </head>
+        #imagefirst {
+            width: 260px;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 2;
+        }
+
+        /* spread layout */
+
+        #image1 {
+            top: 5%;
+            left: 5%;
+            transform: rotate(-8deg);
+        }
+
+        #image2 {
+            top: 5%;
+            right: 5%;
+            transform: rotate(6deg);
+        }
+
+        #image3 {
+            top: 30%;
+            left: 10%;
+            transform: rotate(-5deg);
+        }
+
+        #image4 {
+            top: 30%;
+            right: 10%;
+            transform: rotate(7deg);
+        }
+
+        #image5 {
+            bottom: 25%;
+            left: 5%;
+            transform: rotate(-6deg);
+        }
+
+        #image6 {
+            bottom: 25%;
+            right: 5%;
+            transform: rotate(5deg);
+        }
+
+        #image7 {
+            bottom: 5%;
+            left: 20%;
+            transform: rotate(-4deg);
+        }
+
+        #image8 {
+            bottom: 5%;
+            right: 20%;
+            transform: rotate(6deg);
+        }
+
+        /* FINAL IMAGE CENTERED */
+
+        #imagefinal {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%) rotate(-3deg);
+            width: 280px;
+            z-index: 6;
+        }
+
+        .show {
+            opacity: 1;
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        #fadeOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 4s ease;
+            z-index: 5;
+        }
+
+        .zoom {
+            transform: translate(-50%,-50%) scale(1.6) rotate(-3deg);
+            transition: transform 6s ease;
+            z-index: 6;
+        }
+    </style>
+</head>
 
 <body>
 
-      <h1>Love That Endures</h1>
+    <h1>Love That Endures</h1>
 
-      <p style="font-style: italic;">
-           "Love bears all things, believes all things, hopes all things, endures all things. 
-            Love never fails." <br>
-            - 1 Corinthians 13:7-8
-      </p>
+    <p style="font-style:italic;">
+        "Love bears all things, believes all things, hopes all things, endures all things.
+        Love never fails."<br />
+        - 1 corinthians 13:7-8
+    </p>
 
-      <hr>
+    <hr />
 
-      <h3>Riddle:</h3>
-      <p>
-          I am not a word, yet I am spoken.<br>
-          I am not alive, yet I can grow.<br>
-          I begin in the heart and can last forever.<br>
-          What am I?
-      </p>
+    <h3>Riddle</h3>
+    <p>
+        I am not a word, yet I am spoken.<br />
+        I am not alive, yet I can grow.<br />
+        I begin in the heart and can last forever.<br />
+        What am I?
+    </p>
 
-      <input type="password" id="answer" placeholder="Enter your answer">
-      <br>
-      <button onclick="checkpassword()">Unlock</button>
+    <input type="password" id="answer" placeholder="Enter your answer">
+    <br><br>
+    <button onclick="checkpassword()">Unlock</button>
 
-      <div id="confession">
-            <p>
-                Thando, my twin and my friend, I love you so much and I don't want it to change.
-                But sadly, I'm still <b>In</b> love with you.
-                Trust me, I'm doing everything I can to make sure it doesn't affect our friendship,
-                but as of right now....
-            </p>
+    <img src="imagefirst.jpg" id="imagefirst" class="memory">
+    <img src="image1.jpg" id="image1" class="memory">
+    <img src="image2.jpg" id="image2" class="memory">
+    <img src="image3.jpg" id="image3" class="memory">
+    <img src="image4.jpg" id="image4" class="memory">
+    <img src="image5.jpg" id="image5" class="memory">
+    <img src="image6.jpg" id="image6" class="memory">
+    <img src="image7.jpg" id="image7" class="memory">
+    <img src="image8.jpg" id="image8" class="memory">
+    <img src="imagefinal.jpg" id="imagefinal" class="memory">
 
-              
-            <p id="loveLine">I still love you.</p>
-            <p id="sorryLine">I'm sorry</p>    
-         </div>
+    <div id="confession">
+        <p id="typedText"></p>
+        <p id="loveLine">I still love you.</p>
+        <p id="sorryLine">I'm sorry</p>
+    </div>
 
-         <audio id="lovesong" src="song.mp3"></audio>
+    <audio id="lovesong" src="song.mp3"></audio>
+    <div id="fadeOverlay"></div>
 
-         <script>
-            function checkpassword() {
-                var userAnswer = document.getElementById("answer").value.toLowerCase().trim();
-    
-                if (userAnswer ==="love") {
-  
-                     var confession =document.getElementById("confession");
+    <script>
 
-                     // Make block visible first
-                     confession.style.display = "block";
+        let imagesStarted = false;
+        let sorryShown = false;
 
-                    // Tiny delay so opacity transition works 
-                    setTimeout(function() {
-                     confession.style.opacity = "1";
-                     confession.style.transform = "translateY(0)";
-                 }, 50);
-      
-                     var song = document.getElementById("lovesong");
-                     song.currentTime = 93;
+        const message = `Thando... * sigh * my twin and my friend, I love you so much and I don't want it to change. 
+        But sadly, I'm still in love with you. Trust me, I'm doing everything I can to make sure it doesn't affect our friendship,
+        but as of right now....`;
 
-
-                     setTimeout(function() { 
-                         song.play();
-                    }, 1000);
-
-                    // Synced lyric fade-ins   
-                    song.ontimeupdate = function() {
-                        
-                        if (song.currentTime >= 106) {
-                             var loveLine = document.getElementById("loveLine");
-                            loveLine.style.opacity = "1"
-                            loveLine.classList.add("glow", "heartbeat");
-                        }
-                       
-                        if (song.currentTime >= 121) {
-                            var sorryLine = document.getElementById("sorryLine");
-                            sorryLine.style.opacity = "1";
-                            sorryLine.classList.add("glow", "heartbeat");
-                        }
-
-
-                   };
-
-               } else {
-                   alert("This is not the right answer. Try again.");
+        function typeText() {
+            let i = 0;
+            function typing() {
+                if (i < message.length) {
+                    document.getElementById("typedText").innerHTML += message.charAt(i);
+                    i++;
+                    setTimeout(typing, 40);
                 }
-             }
-           </script>
+            }
+            typing();
+        }
 
- </body>
- </html>
+        function showMemories() {
+            let memories = ["image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "imagefinal"];
+            memories.forEach(function (id, index) {
+                setTimeout(function () {
+                    document.getElementById(id).classList.add("show");
+                }, index * 2000);
+            });
+        }
 
+        let heartInterval = setInterval(function () {
+            var heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (15 + Math.random() * 20) + "px";
+            document.body.appendChild(heart);
+            setTimeout(function () { heart.remove(); }, 6000);
+        }, 800);
 
+        function checkpassword() {
 
+            var userAnswer = document.getElementById("answer").value.toLowerCase().trim();
+
+            if (userAnswer === "love") {
+
+                var confession = document.getElementById("confession");
+
+                confession.style.display = "block";
+
+                setTimeout(function () {
+                    confession.style.opacity = "1";
+                    typeText();
+                }, 300);
+
+                var song = document.getElementById("lovesong");
+
+                song.currentTime = 93;
+                song.volume = 0;
+
+                song.play().then(function () {
+                    var fade = setInterval(function () {
+                        if (song.volume < 1) {
+                            song.volume = Math.min(song.volume + 0.05, 1);
+                        } else {
+                            clearInterval(fade);
+                        }
+                    }, 300);
+                }).catch(function (error) {
+                    console.log("Audio failed:", error);
+                });
+
+                song.ontimeupdate = function () {
+
+                    if (song.currentTime >= 106 && !imagesStarted) {
+
+                        imagesStarted = true;
+
+                        document.getElementById("loveLine").style.opacity = "1";
+                        document.getElementById("loveLine").classList.add("glow");
+
+                        document.getElementById("imagefirst").classList.add("show");
+
+                        /* DELAY ADDED */
+                        setTimeout(function () {
+                            showMemories();
+                        }, 3000);
+
+                    }
+
+                    if (song.currentTime >= 121 && !sorryShown) {
+
+                        sorryShown = true;
+
+                        document.getElementById("sorryLine").style.opacity = "1";
+                        document.getElementById("sorryLine").classList.add("glow");
+
+                    }
+
+                    if (song.currentTime >= 130) {
+
+                        clearInterval(heartInterval);
+
+                        document.getElementById("imagefinal").classList.add("zoom");
+                        document.getElementById("fadeOverlay").style.opacity = "0.6";
+
+                    }
+
+                };
+
+            } else {
+                alert("Wrong answer");
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
