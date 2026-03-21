@@ -37,10 +37,20 @@
             margin: 0 auto 20px auto;
         }
 
+        #intro {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .fadeOut {
+            opacity: 0;
+            pointer-events: none;
+        }
+
         #confession {
             display: none;
             opacity: 0;
-            margin: 30px auto 0 auto;
+            margin: 10px auto 0 auto;
             font-size: 1.1rem;
             line-height: 1.8;
             max-width: 900px;
@@ -357,27 +367,29 @@
 
 <body>
 
-    <h1>Love That Endures</h1>
+    <div id="intro">
+        <h1>Love That Endures</h1>
 
-    <p class="verse">
-        "Love bears all things, believes all things, hopes all things, endures all things.
-        Love never fails."<br />
-        - 1 Corinthians 13:7-8
-    </p>
+        <p class="verse">
+            "Love bears all things, believes all things, hopes all things, endures all things.
+            Love never fails."<br />
+            - 1 Corinthians 13:7-8
+        </p>
 
-    <hr />
+        <hr />
 
-    <h3 class="riddle-title">Riddle</h3>
-    <p class="riddle-text">
-        I am not a word, yet I am spoken.<br />
-        I am not alive, yet I can grow.<br />
-        I begin in the heart and can last forever.<br />
-        What am I?
-    </p>
+        <h3 class="riddle-title">Riddle</h3>
+        <p class="riddle-text">
+            I am not a word, yet I am spoken.<br />
+            I am not alive, yet I can grow.<br />
+            I begin in the heart and can last forever.<br />
+            What am I?
+        </p>
 
-    <input type="password" id="answer" placeholder="Enter your answer">
-    <br><br>
-    <button onclick="checkpassword()">Unlock</button>
+        <input type="password" id="answer" placeholder="Enter your answer">
+        <br><br>
+        <button onclick="checkpassword()">Unlock</button>
+    </div>
 
     <img src="imagefirst.jpg" id="imagefirst" class="memory">
     <img src="image1.jpg" id="image1" class="memory">
@@ -405,7 +417,7 @@
         let sorryShown = false;
 
         const message = `Thando... my twin and my friend, I love you so much and I don't want it to change.
-            But sadly, there is something I want to tell you. Trust me, I have done everything I can to make sure it doesn't affect our friendship,
+            But sadly, I have something to tell. Trust me, I have done everything I can to make sure it doesn't affect our friendship,
             but as of right now....`;
 
         function typeText() {
@@ -445,31 +457,38 @@
 
             if (userAnswer === "love") {
 
+                var intro = document.getElementById("intro");
                 var confession = document.getElementById("confession");
-
-                confession.style.display = "block";
-
-                setTimeout(function () {
-                    confession.style.opacity = "1";
-                    typeText();
-                }, 300);
-
                 var song = document.getElementById("lovesong");
 
-                song.currentTime = 93;
-                song.volume = 0;
+                intro.classList.add("fadeOut");
 
-                song.play().then(function () {
-                    var fade = setInterval(function () {
-                        if (song.volume < 1) {
-                            song.volume = Math.min(song.volume + 0.05, 1);
-                        } else {
-                            clearInterval(fade);
-                        }
-                    }, 300);
-                }).catch(function (error) {
-                    console.log("Audio failed:", error);
-                });
+                setTimeout(function () {
+                    intro.style.display = "none";
+
+                    confession.style.display = "block";
+
+                    setTimeout(function () {
+                        confession.style.opacity = "1";
+                        typeText();
+                    }, 50);
+
+                    song.currentTime = 93;
+                    song.volume = 0;
+
+                    song.play().then(function () {
+                        var fade = setInterval(function () {
+                            if (song.volume < 1) {
+                                song.volume = Math.min(song.volume + 0.05, 1);
+                            } else {
+                                clearInterval(fade);
+                            }
+                        }, 300);
+                    }).catch(function (error) {
+                        console.log("Audio failed:", error);
+                    });
+
+                }, 500);
 
                 song.ontimeupdate = function () {
 
@@ -485,7 +504,6 @@
                         setTimeout(function () {
                             showMemories();
                         }, 3000);
-
                     }
 
                     if (song.currentTime >= 121 && !sorryShown) {
@@ -494,7 +512,6 @@
 
                         document.getElementById("sorryLine").style.opacity = "1";
                         document.getElementById("sorryLine").classList.add("glow");
-
                     }
 
                     if (song.currentTime >= 130) {
@@ -503,19 +520,15 @@
 
                         document.getElementById("imagefinal").classList.add("zoom");
                         document.getElementById("fadeOverlay").style.opacity = "0.6";
-
                     }
-
                 };
 
             } else {
                 alert("Wrong answer");
             }
-
         }
 
     </script>
 
 </body>
 </html>
-
